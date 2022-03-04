@@ -41,6 +41,23 @@ app.post('/api/goal', (req, res) => {
   res.status(200).send(goals)
 })
 
+app.delete('/api/goal', (req, res) => {
+
+  goals.shift()
+  console.log(goals)
+  res.status(200).send(goals)
+})
+
+app.put('/api/goal', (req, res) => {
+  const {updatedGoal} = req.body;
+  console.log(req.body)
+  goals.pop();
+  goals.push(updatedGoal);
+  console.log(goals)
+
+  res.status(200).send(goals)
+  
+})
 
 
 app.listen(4000, () => console.log("Server running on 4000"));
