@@ -32,4 +32,15 @@ app.get('/api/fortune', (req, res) => {
             res.status(200).send(randomFortune);
 })
 
+let goals = [];
+
+app.post('/api/goal', (req, res) => {
+  const {newGoal} = req.body;
+
+  goals.push(newGoal);
+  res.status(200).send(goals)
+})
+
+
+
 app.listen(4000, () => console.log("Server running on 4000"));
