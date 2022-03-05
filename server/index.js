@@ -36,6 +36,7 @@ let goals = [];
 
 app.post('/api/goal', (req, res) => {
   const {newGoal} = req.body;
+  console.log(req.body)
 
   goals.push(newGoal);
   res.status(200).send(goals)

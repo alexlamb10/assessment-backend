@@ -32,15 +32,29 @@ let goalInput = document.querySelector('#goal-input')
       axios.post('http://localhost:4000/api/goal/', goal)
       .then(res => {
           console.log(res.data)      
+
             let body = document.querySelector('body')
-            let newGoal = document.createElement('p')
-    
-              newGoal.textContent = res.data
-              body.appendChild(newGoal)
-          
+            buildListForScreen(res.data);
+            
         
       })
       goalInput.value = ''
+  }
+
+  function buildListForScreen(arr) {
+      console.log(arr)
+      const listContainer = document.getElementById('list-container')
+      listContainer.innerHTML = "" // clear the element
+
+      let newGoalList = document.createElement('ul')
+      listContainer.appendChild(newGoalList)
+      for (let i  = 0; i <arr.length; i++){
+                let newGoal = document.createElement('li')
+              let currentGoal =  arr[i]
+              newGoal.textContent = currentGoal;
+              newGoalList.appendChild(newGoal)
+
+          }
   }
   
   submitGoal.addEventListener('click', addGoal)
@@ -49,11 +63,7 @@ let goalInput = document.querySelector('#goal-input')
       event.preventDefault()
       axios.delete('http://localhost:4000/api/goal/')
       .then(res => {
-          let body = document.querySelector('body')
-          let newGoal = document.createElement('p')
-          
-          newGoal.textContent = res.data
-          body.appendChild(newGoal)
+          buildListForScreen(res.data);
           
         })
     }
@@ -62,6 +72,7 @@ let goalInput = document.querySelector('#goal-input')
 
     function changeLastGoal(event){
         event.preventDefault();
+    
 
         let goalChange = {
             updatedGoal: goalInput.value
@@ -69,11 +80,7 @@ let goalInput = document.querySelector('#goal-input')
 
         axios.put('http://localhost:4000/api/goal/', goalChange)
         .then(res => {
-            let body = document.querySelector('body')
-            let newGoal = document.createElement('p')
-          
-            newGoal.textContent = res.data
-            body.appendChild(newGoal)
+            buildListForScreen(res.data);
         })
 
         goalInput.value = ''
